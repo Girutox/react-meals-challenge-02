@@ -1,4 +1,4 @@
-import HeaderCardButton from './HeaderCardButton';
+import HeaderCardButton from "./HeaderCardButton";
 
 import styles from './Header.module.scss';
 
@@ -8,5 +8,5 @@ export default function Header() {
       <h1>ReactMeals</h1>
       <HeaderCardButton />
     </header>
-  );
+  )
 }

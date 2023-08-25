@@ -13,5 +13,5 @@ export default function HeaderCardButton() {
         0
       </div>
     </button>
-  );
+  )
 }
