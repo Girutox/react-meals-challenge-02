@@ -5,6 +5,12 @@ import styles from './App.module.scss';
 import Meals from "./components/Meals/Meals";
 
 function App() {
+  const valueFromRoot = "Value from App.jsx";
+
+  function printValueFromChildHandler(childValue) {
+    console.log("Value from Child:", childValue);
+  }
+
   return (
     <>
       <Header />
@@ -12,7 +18,7 @@ function App() {
         <section className={styles['main-image']}>
           <img src={MealsImg} alt="A table full of food" />
         </section>
-        <Meals />
+        <Meals valueFromRoot={valueFromRoot} onPrintValueFromChild={printValueFromChildHandler} />
       </main>
     </>
   );

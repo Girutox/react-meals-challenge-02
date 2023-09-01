@@ -3,8 +3,13 @@ import { useRef } from 'react';
 import styles from './MealItem.module.scss';
 import Input from '../../UI/Input';
 
-export default function MealIitem({meal, description, price}) {
+export default function MealIitem({valueFromRoot, onPrintValueFromChild, meal, description, price}) {
+  const valueFromMealItem = "Value from MealItem.jsx";
+
   const amountRef = useRef();
+
+  console.log("Root value:", valueFromRoot);
+  onPrintValueFromChild(valueFromMealItem);
 
   const submitHandler = (e) => {
     e.preventDefault();

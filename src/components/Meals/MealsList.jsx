@@ -30,7 +30,7 @@ const DUMMY_MEALS = [
   },
 ];
 
-export default function MealsList() {
+export default function MealsList(props) {
   return (
     <section className={styles.meals}>
       <Card>
@@ -38,6 +38,8 @@ export default function MealsList() {
           {DUMMY_MEALS.map((item) => {
             return (
               <MealIitem
+                onPrintValueFromChild={props.onPrintValueFromChild}
+                valueFromRoot={props.valueFromRoot}
                 key={item.id}
                 id={item.id}
                 meal={item.name}
