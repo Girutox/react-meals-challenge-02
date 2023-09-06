@@ -1,6 +1,12 @@
 import styles from './MealsSummary.module.scss';
 
+// import CartContext from '../../store/CartContext';
+// import { useContext } from 'react';
+
 export default function MealsSummary() {
+  // const cartContext = useContext(CartContext);
+  // console.log(cartContext);
+
   return (
     <section className={styles.summary}>
       <h2>Delicious Food, Delivered To You</h2>

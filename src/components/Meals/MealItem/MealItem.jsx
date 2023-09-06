@@ -1,20 +1,23 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 
 import styles from './MealItem.module.scss';
 import Input from '../../UI/Input';
 
+import CartContext from '../../../store/CartContext';
+
 export default function MealIitem({valueFromRoot, onPrintValueFromChild, meal, description, price}) {
-  const valueFromMealItem = "Value from MealItem.jsx";
+  const cartContext = useContext(CartContext);
 
   const amountRef = useRef();
-
-  console.log("Root value:", valueFromRoot);
-  onPrintValueFromChild(valueFromMealItem);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    console.dir(amountRef.current.value);
+    cartContext.addMealItemHandler({
+      meal: 'Meal 01',
+      price: 99.9,
+      amount: amountRef.current.value
+    });
   }
 
   return (
@@ -33,10 +36,10 @@ export default function MealIitem({valueFromRoot, onPrintValueFromChild, meal, d
                 id: 'Amount',
                 type: 'number',
                 name: 'Amount',
-                defaultValue: 3,
+                defaultValue: 1,
                 min: 1,
                 max: 5,
-                step: 2
+                step: 1
               }
             }
             ref={amountRef} />
