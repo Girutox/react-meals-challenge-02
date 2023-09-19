@@ -3,14 +3,15 @@ import CartContext from "./CartContext";
 
 // ESTADO INICIAL
 const defaultState = {
-  mealItems: []
+  mealItems: [],
+  totalAmount: 0
 };
 
 // FUNCION REDUCTORA
 function cartReducer(state, action) {
-  if (action.type === 'add') {
-    const currentItems = [...state.mealItems];
+  const currentItems = [...state.mealItems];
 
+  if (action.type === 'add') {
     const existingItem = currentItems.find((item) => item.id === action.mealItem.id);
     // Si existe el item
     if (existingItem) {
@@ -20,11 +21,30 @@ function cartReducer(state, action) {
       currentItems.push(action.mealItem);
     }
 
+    const totalAmount = currentItems.reduce((prev, current) => prev + (current.price * current.amount), 0);
+
     return {
-      mealItems: currentItems
+      mealItems: currentItems,
+      totalAmount
     }
   } else if (action.type === 'delete') {
-    // TO DO
+    const existingItem = currentItems.find((item) => item.id === action.mealId);
+
+    let newMeals = null;
+
+    if (existingItem.amount === 1) {
+      newMeals = currentItems.filter(item => item.id !== action.mealId);
+    } else {
+      existingItem.amount -= 1;
+      newMeals = currentItems;
+    }
+
+    const totalAmount = newMeals.reduce((prev, current) => prev + (current.price * current.amount), 0);
+
+    return {
+      mealItems: newMeals,
+      totalAmount
+    }
   }
 } 
 
@@ -41,6 +61,7 @@ const CartProvider = (props) => {
 
   const cartContextValue = {
     mealItems: cartState.mealItems,
+    totalAmount: cartState.totalAmount,
     addMealItemHandler: addMealItemHandler,
     deleteMealItemHandler: deleteMealItemHandler
   }

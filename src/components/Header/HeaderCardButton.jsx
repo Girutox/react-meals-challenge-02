@@ -1,16 +1,31 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CartIcon from './CartIcon';
-import Card from '../UI/Card';
 
 import styles from './HeaderCardButton.module.scss';
 import CartContext from '../../store/CartContext';
-import Modal from '../UI/Modal';
+import Cart from '../Cart/Cart';
 
 export default function HeaderCardButton() {
   const [showModal, setShowModal] = useState(false);
+  const [showBump, setShowBump] = useState(false);
+
   const cartContext = useContext(CartContext);
 
-  // console.log(cartContext);
+  const buttonClasses = `${styles.button} ${showBump && styles.bump}`;
+
+  useEffect(() => {
+    if (!cartContext.mealItems.length) return;
+
+    setShowBump(true);
+
+    const timeoutId = setTimeout(() => {
+      setShowBump(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timeoutId);
+    }
+  }, [cartContext.mealItems])
 
   const showCartHandler = () => {
     setShowModal(true);
@@ -22,7 +37,7 @@ export default function HeaderCardButton() {
 
   return (
     <>
-      <button onClick={showCartHandler} className={styles.button}>
+      <button onClick={showCartHandler} className={buttonClasses}>
         <div className={styles.icon}>
           <CartIcon />
         </div>
@@ -31,12 +46,7 @@ export default function HeaderCardButton() {
           {cartContext.mealItems.length}
         </div>
       </button>
-      {showModal &&
-        <Modal onClose={hideCartHandler}>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique velit ipsum hic repellat est ullam non? Reiciendis odit suscipit consequatur quasi tenetur, doloribus repellat dignissimos debitis corporis a corrupti veniam.</p>
-          <button onClick={hideCartHandler}>Close</button>
-          <button>Order</button>
-        </Modal>}
+      {showModal && <Cart onClose={hideCartHandler} />}
     </>
   )
 }
