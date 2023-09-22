@@ -3,22 +3,33 @@ import { useRef, useContext } from 'react';
 import styles from './MealItem.module.scss';
 import Input from '../../UI/Input';
 
-import CartContext from '../../../store/CartContext';
+// import CartContext from '../../../store/CartContext';
 
-export default function MealIitem({id, meal, description, price}) {
-  const cartContext = useContext(CartContext);
+import { useDispatch } from 'react-redux';
+import { addMeal } from '../../../store/cartSlice';
+
+export default function MealIitem({ id, meal, description, price }) {
+  // const cartContext = useContext(CartContext);
+  const dispatch = useDispatch();
 
   const amountRef = useRef();
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    cartContext.addMealItemHandler({
+    // cartContext.addMealItemHandler({
+    //   id,
+    //   name: meal,
+    //   price,
+    //   amount: +amountRef.current.value
+    // });
+    
+    dispatch(addMeal({
       id,
       name: meal,
       price,
       amount: +amountRef.current.value
-    });
+    }))
   }
 
   return (

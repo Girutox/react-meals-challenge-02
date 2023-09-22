@@ -1,11 +1,23 @@
 import CartItem from './CartItem';
 import Modal from '../UI/Modal';
 import styles from './Cart.module.scss';
-import { useContext } from 'react';
-import CartContext from '../../store/CartContext';
+import {useSelector, useDispatch} from 'react-redux';
+import {addMeal, deleteMeal} from '../../store/cartSlice';
+// import { useContext } from 'react';
+// import CartContext from '../../store/CartContext';
 
 const Cart = ({onClose}) => {
-  const { mealItems, totalAmount, addMealItemHandler, deleteMealItemHandler } = useContext(CartContext);
+  // const { mealItems, totalAmount, addMealItemHandler, deleteMealItemHandler } = useContext(CartContext);
+  const {mealItems, totalAmount} = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const addMealItemHandler = (item) => {
+    dispatch(addMeal(item));
+  }
+
+  const deleteMealItemHandler = (id) => {
+    dispatch(deleteMeal(id));
+  }
 
   return (
     <Modal onClose={onClose}>
