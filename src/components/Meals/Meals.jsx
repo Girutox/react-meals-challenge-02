@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import MealsList from "./MealsList";
 import MealsSummary from "./MealsSummary";
 
-import CartContext from "../../store/CartContext";
+// import CartContext from "../../store/CartContext";
 
 export default function Meals(props) {
   return (

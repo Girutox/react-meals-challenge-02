@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CartIcon from './CartIcon';
 
 import styles from './HeaderCardButton.module.scss';
-// import CartContext from '../../store/CartContext';
 import Cart from '../Cart/Cart';
 
 import { useSelector } from 'react-redux';
@@ -13,13 +12,10 @@ export default function HeaderCardButton() {
 
   const mealItems = useSelector((state) => state.cart.mealItems);
 
-  // const cartContext = useContext(CartContext);
-
   const buttonClasses = `${styles.button} ${showBump && styles.bump}`;
 
   useEffect(() => {
-    // if (!cartContext.mealItems.length) return;
-    if (mealItems.length) return;
+    if (!mealItems.length) return;
 
     setShowBump(true);
 
@@ -30,7 +26,6 @@ export default function HeaderCardButton() {
     return () => {
       clearTimeout(timeoutId);
     }
-    // }, [cartContext.mealItems])
   }, [mealItems])
 
   const showCartHandler = () => {
@@ -49,7 +44,6 @@ export default function HeaderCardButton() {
         </div>
         <span>Your Cart</span>
         <div className={styles.badge}>
-          {/* {cartContext.mealItems.length} */}
           {mealItems.length}
         </div>
       </button>

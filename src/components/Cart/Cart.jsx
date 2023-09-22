@@ -1,13 +1,11 @@
 import CartItem from './CartItem';
 import Modal from '../UI/Modal';
 import styles from './Cart.module.scss';
+
 import {useSelector, useDispatch} from 'react-redux';
 import {addMeal, deleteMeal} from '../../store/cartSlice';
-// import { useContext } from 'react';
-// import CartContext from '../../store/CartContext';
 
 const Cart = ({onClose}) => {
-  // const { mealItems, totalAmount, addMealItemHandler, deleteMealItemHandler } = useContext(CartContext);
   const {mealItems, totalAmount} = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -41,7 +39,7 @@ const Cart = ({onClose}) => {
       </section>
       <section className={styles.actions}>
         <button className={styles['button--alt']} onClick={() => { onClose() }}>Close</button>
-        <button className={styles.button}>Order</button>
+        {mealItems.length > 0 && <button className={styles.button}>Order</button>} 
       </section>
     </Modal>
   )
